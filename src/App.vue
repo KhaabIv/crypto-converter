@@ -63,7 +63,7 @@
       flex flex-col h-[81px] min-w-[328px] max-w-[723px] mt-12 pl-4 pr-4
       wideScreen:w-[440px] wideScreen:p-0
       tablet:w-full tablet:mr-[32px]">
-        <p class="h-[23px] mb-[8px]">Your Ethereum address</p>
+        <p class="h-[23px] mb-[8px]">Your {{convertCurrency.name}} address</p>
         <input type="text"
                class="w-full h-full border-solid border bg-[#F6F7F8] rounded-md min-w-[328px] max-w-[723px] indent-4 focus:outline-none"/>
       </div>
