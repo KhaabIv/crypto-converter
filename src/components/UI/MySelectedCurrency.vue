@@ -1,7 +1,7 @@
 <template>
   <div
       class="flex w-[148px] rounded-r-[6px] items-center justify-between bg-[#F6F7F8] hover:cursor-pointer"
-      @click="$emit('openList', true)"
+      @click.stop="$emit('openList', true)"
   >
     <div class="flex ml-[32px]">
       <div name="img" class="w-[20px] h-[20px]">

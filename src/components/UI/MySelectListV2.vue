@@ -3,18 +3,18 @@
     <div class="bg-[#C1D9E5] rounded-[5px]">
       <div class="flex flex-row w-full justify-between bg-[#F6F7F8] rounded-t-[5px] border-b border-[#E3EBEF]">
         <input
+            @click.stop
             class="h-12 grow w-full bg-[#F6F7F8] ml-4 focus:outline-none"
             name="search"
             type="text"
             ref="inputCurrency"
             placeholder="Search"
-            v-model="searchValue"
-            @input="searchCurrency"
+            v-model.trim="searchValue"
         />
         <div class="self-center h-[16px] w-[16px] mr-4">
           <my-cross
               class="m-[2px] hover:cursor-pointer"
-              @click="clearModalValue"
+              @click.stop="clearModalValue"
           ></my-cross>
         </div>
       </div>
@@ -36,8 +36,16 @@ export default {
   name: 'my-select-list2',
   data() {
     return {
-      currentCurrencyArray: this.options,
       searchValue: ''
+    }
+  },
+  computed: {
+    currentCurrencyArray() {
+      if (this.searchValue.length !== 0 && this.options.filter(o => o.ticker.toLowerCase().includes(this.searchValue.toLowerCase()) || o.name.toLowerCase().includes(this.searchValue.toLowerCase())).length !== 0) {
+        return this.options.filter(o => o.ticker.toLowerCase().includes(this.searchValue.toLowerCase()) || o.name.toLowerCase().includes(this.searchValue.toLowerCase()))
+      } else {
+        return this.options
+      }
     }
   },
   props: {
@@ -51,41 +59,16 @@ export default {
     }
   },
   watch: {
-    isOpenList(newValue) {
-      if (newValue) {
-        this.init()
-      } else {
-        if (this.options.filter(o => o.ticker === this.$refs.inputCurrency.value).length === 0) {
-          this.clearModalValue()
-        }
+    isOpenList() {
+      if (this.options.filter(o => o.ticker === this.$refs.inputCurrency.value).length === 0) {
+        this.clearModalValue()
       }
     },
   },
   methods: {
-    init() {
-      this.currentCurrencyArray = this.options
-    },
-
     clearModalValue() {
-      this.init()
       this.searchValue = ''
     },
-
-    searchCurrency(event) {
-      let currentText
-      if (event.target.value.length !== 0) {
-        currentText = event.target.value.toUpperCase()
-        this.currentCurrencyArray = this.options.filter(o => o.ticker.slice(0, event.target.value.length) === currentText)
-      } else {
-        this.init()
-      }
-      if (this.currentCurrencyArray.length === 0) {
-        this.init()
-      }
-    },
   },
-  mounted() {
-    this.init()
-  }
 }
 </script>

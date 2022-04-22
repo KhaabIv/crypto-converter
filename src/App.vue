@@ -4,6 +4,7 @@
       w-screen h-screen overflow-hidden
       wideScreen:flex wideScreen:flex-col wideScreen:items-center
       tablet:justify-center tablet:w-[960px] tablet:m-auto"
+      @click="closeSelect"
   >
     <div class="
       flex-col flex justify-start pt-16 pr-12 pb-14 pl-4
@@ -169,6 +170,11 @@ export default {
         this.isLoadingCurrent = value
         this.isLoadingConvert = value
       }
+    },
+
+    closeSelect() {
+      this.isOpenListCurrentCurrency = false
+      this.isOpenListConvertCurrency = false
     },
 
     async selectCurrency(event, type) {
